@@ -1,5 +1,5 @@
 name: 🐛 Bug Bounty Hunter
-description: Report an bug in github-super-starter-kit and help improve the project!
+description: Report an bug in You_Me and help improve the project!
 labels: ['🛠 goal: fix', 'good first issue', '🤩 Up for the grab', 'help wanted', 'enhancement', 'bug']
 title: '[BUG 🐞] <description>'
 body:
@@ -26,14 +26,14 @@ body:
           description: Is there anything else we should know about this idea?
           value: |
 
-              ## **Make sure to read the [CONTRIBUTING](https://github.com/warmachine028/github-super-starter-kit/blob/main/CONTRIBUTING.md) and [SETUP](https://github.com/warmachine028/github-super-starter-kit/tree/main/rules) docs before proceeding**
+              ## **Make sure to read the [CONTRIBUTING](https://github.com/SrijaAdhya12/You_Me/blob/main/CONTRIBUTING.md) and [SETUP](https://github.com/SrijaAdhya12/You_Me/tree/main/rules) docs before proceeding**
               ## Happy contributing. 💐
-              Star my other Repositories [here](https://github.com/warmachine028)
+              Star my other Repositories [here](https://github.com/SrijaAdhya12)
       validations:
           required: false
     - type: markdown
       attributes:
           value: |
-              ## **Make sure to read the [CONTRIBUTING](https://github.com/warmachine028/github-super-starter-kit/blob/main/CONTRIBUTING.md) and [SETUP](https://github.com/warmachine028/github-super-starter-kit/tree/main/rules) docs before proceeding**
+              ## **Make sure to read the [CONTRIBUTING](https://github.com/SrijaAdhya12/You_Me/blob/main/CONTRIBUTING.md) and [SETUP](https://github.com/SrijaAdhya12/You_Me/tree/main/rules) docs before proceeding**
               ## Happy contributing. 💐
-              Star my other Repositories [here](https://github.com/warmachine028?tab=repositories)
+              Star my other Repositories [here](https://github.com/SrijaAdhya12?tab=repositories)
