@@ -6,8 +6,11 @@ const Navbar = () => {
 		<header className="shadow">
 			<div className="mx-auto flex h-14 max-w-5xl items-center justify-between p-3 font-medium">
 				<Link href="/">New Meeting</Link>
-				<SignedIn>
+			  <SignedIn>
+				  <div className="flex items-center gap-5">
+					  <Link href="/new-meeting">Meeting</Link>
 					<UserButton />
+				  </div>
 				</SignedIn>
 			</div>
 		</header>
