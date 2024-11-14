@@ -1,0 +1,16 @@
+{
+	"depcheck": {
+		"ignoreMatches": [
+            "@clerk/nextjs",
+            "@stream-io/node-sdk",
+            "@stream-io/video-react-sdk",
+            "clsx",
+            "lucide-react",
+            "nanoid",
+            "tailwind-merge",
+            "postcss",
+            "prettier",
+            "nanoid"
+		]
+	}
+}
