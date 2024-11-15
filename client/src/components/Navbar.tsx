@@ -1,4 +1,4 @@
-import { UserButton, SignedIn } from '@clerk/nextjs'
+import { UserButton, SignedIn, SignedOut, SignInButton } from '@clerk/nextjs'
 import Link from "next/link";
 
 const Navbar = () => {
@@ -11,7 +11,10 @@ const Navbar = () => {
 					  <Link href="/new-meeting">Meeting</Link>
 					<UserButton />
 				  </div>
-				</SignedIn>
+			  </SignedIn>
+			  <SignedOut>
+				  <SignInButton />
+			  </SignedOut>
 			</div>
 		</header>
   )
