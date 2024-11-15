@@ -1,6 +1,8 @@
 "use server";
+
 import { currentUser } from "@clerk/nextjs/server";
 import { StreamClient } from "@stream-io/node-sdk";
+
 export const getToken = async () => {
     const streamApiKey = process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY;
     const streamApiSecret = process.env.STREAM_VIDEO_API_SECRET;

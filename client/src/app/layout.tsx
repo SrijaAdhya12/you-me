@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import { ClerkProvider, SignInButton, SignedOut, UserButton, SignedIn } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Navbar } from '../components'
 import ClientProvider from './ClientProvider'
 const geistSans = localFont({
