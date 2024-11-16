@@ -8,14 +8,15 @@ export const CreateMeeting = () => {
 	const [descriptionInput, setDescriptionInput] = useState('')
 	const [startTimeInput, setStartTimeInput] = useState('')
 	const [participantInput, setParticipantInput] = useState('')
-	const [call, setCall] = useState<Call | null>(null)
+	const [call, setCall] = useState<Call>()
 	const client = useStreamVideoClient()
 	const { user } = useUser()
 	const createMeeting = async () => {
 		if (!client || !user) return
 		try {
 			const id = crypto.randomUUID()
-			const call = client.call('default', id)
+			const callType = participantInput ? 'private-meeting' : 'default'
+			const call = client.call(callType, id,)
 			await call.getOrCreate({
 				data: {
 					custom: {
