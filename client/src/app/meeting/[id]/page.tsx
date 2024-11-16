@@ -3,7 +3,9 @@ import MeetingPage from './MeetingPage'
 
 type PageProps = {
 	params: Promise<{ id: string }> & { id: string }
-	searchParams?: { [key: string]: string | string[] | undefined }
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }> & {
+		[key: string]: string | string[] | undefined
+	}
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
