@@ -1,12 +1,14 @@
 import { Metadata } from "next"
-import  MeetingPage  from "./MeetingPage"
+import MeetingPage from "./MeetingPage"
+
+
 interface PageProps {
 	params: {
 		id: string 
 	}
 }
 
-export const generateMetadata =  ({ params: { id } }: PageProps): Metadata => {
+export const generateMetadata = async ({ params: { id } }: PageProps): Promise<Metadata> => {
 	return {
 		title: `Meeting ${id}`
 	}
