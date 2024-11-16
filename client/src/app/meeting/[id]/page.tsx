@@ -1,19 +1,23 @@
 import { Metadata } from 'next'
 import MeetingPage from './MeetingPage'
 
-type Props = {
-	params: {
-		id: string
-	}
-	searchParams: Record<string, string | string[] | undefined>
+import { ResolvingMetadata } from 'next'
+
+type PageParams = {
+	id: string
 }
 
-export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+type Props = {
+	params: PageParams
+	searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 	return {
 		title: `Meeting ${params.id}`
 	}
 }
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
 	return <MeetingPage id={params.id} />
 }
