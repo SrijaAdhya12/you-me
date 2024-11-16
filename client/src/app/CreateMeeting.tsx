@@ -44,6 +44,7 @@ export const CreateMeeting = () => {
 					Create Meeting
 				</button>
 			</div>
+			{call && <MeetingLink call={call} />}
 		</div>
 	)
 }
@@ -178,3 +179,14 @@ const ParticipantInput = ({ value, onChange }: ParticipantInput) => {
 		</div>
 	)
 }
+
+interface MeetingLinkProps {
+	call: Call
+}
+
+
+const MeetingLink = ({ call }: MeetingLinkProps) => {
+	const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${call.id}`
+	return <div className="mt-4 text-center text-sm text-slate-500">{meetingLink}</div>
+}
+
