@@ -12,7 +12,7 @@ export const generateMetadata =  ({ params: { id } }: PageProps): Metadata => {
 	}
 }
 
-export const Page = ({ params: { id } }: PageProps) => {
+const Page = ({ params: { id } }: PageProps) => {
 	return <MeetingPage id={id} />  
 }
 
