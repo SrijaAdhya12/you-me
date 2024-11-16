@@ -1,10 +1,14 @@
 import { Metadata } from "next"
 import MeetingPage from "./MeetingPage"
 
+interface PageParams {
+	id: string
+}
 
 interface PageProps {
 	params: {
-		id: string 
+		id: string
+		params: PageParams
 	}
 }
 
