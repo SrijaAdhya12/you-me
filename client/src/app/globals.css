@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.str-video__participant-details {
+  color: white;
+}
+
+.str-video__menu-container {
+  color: white;
+}
+
+.str-video__notification {
+  color: white;
+}

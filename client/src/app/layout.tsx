@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+import '@stream-io/video-react-sdk/dist/css/styles.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Navbar } from '../components'
 import ClientProvider from './ClientProvider'
