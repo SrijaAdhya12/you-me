@@ -21,15 +21,16 @@ export const CreateMeeting = () => {
 			const call = client.call(callType, id)
 			const memberEmails = participantInput.split(',').map((email) => email.trim())
 			const memberIds = await getUserIds(memberEmails)
-			const members: MemberRequest[] = memberIds.map((id) => ({
-				user_id: id,
-				role: 'call_member'
-			})).concat({
-				user_id: user.id,
-				role: 'call_member'
-			}).filter(
-				(v,i,a) => a.findIndex((v2) => v2.user_id === v.user_id) === i
-			)
+			const members: MemberRequest[] = memberIds
+				.map((id) => ({
+					user_id: id,
+					role: 'call_member'
+				}))
+				.concat({
+					user_id: user.id,
+					role: 'call_member'
+				})
+				.filter((v, i, a) => a.findIndex((v2) => v2.user_id === v.user_id) === i)
 			const starts_at = new Date(startTimeInput || Date.now()).toISOString()
 			await call.getOrCreate({
 				data: {
@@ -201,9 +202,7 @@ interface MeetingLinkProps {
 	call: Call
 }
 
-
 const MeetingLink = ({ call }: MeetingLinkProps) => {
 	const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${call.id}`
 	return <div className="mt-4 text-center text-sm text-slate-500">{meetingLink}</div>
 }
-
