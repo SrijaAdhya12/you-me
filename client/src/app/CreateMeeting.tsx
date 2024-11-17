@@ -1,8 +1,9 @@
 'use client'
 import { useUser } from '@clerk/nextjs'
 import { Loader2 } from 'lucide-react'
-import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk'
+import { Call, MemberRequest, useStreamVideoClient } from '@stream-io/video-react-sdk'
 import { useState } from 'react'
+import { getUserIds } from './actions'
 
 export const CreateMeeting = () => {
 	const [descriptionInput, setDescriptionInput] = useState('')
@@ -16,9 +17,23 @@ export const CreateMeeting = () => {
 		try {
 			const id = crypto.randomUUID()
 			const callType = participantInput ? 'private-meeting' : 'default'
-			const call = client.call(callType, id,)
+			const call = client.call(callType, id)
+			const memberEmails = participantInput.split(',').map((email) => email.trim())
+			const memberIds = await getUserIds(memberEmails)
+			const members: MemberRequest[] = memberIds.map((id) => ({
+				user_id: id,
+				role: 'call_member'
+			})).concat({
+				user_id: user.id,
+				role: 'call_member'
+			}).filter(
+				(v,i,a) => a.findIndex((v2) => v2.user_id === v.user_id) === i
+			)
+			const starts_at = new Date(startTimeInput || Date.now()).toISOString()
 			await call.getOrCreate({
 				data: {
+					starts_at,
+					members,
 					custom: {
 						description: descriptionInput
 					}
