@@ -1,10 +1,11 @@
 'use client'
 import { useUser } from '@clerk/nextjs'
-import { Loader2 } from 'lucide-react'
+import { Copy, Loader2 } from 'lucide-react'
 import { Call, MemberRequest, useStreamVideoClient } from '@stream-io/video-react-sdk'
 import { useState } from 'react'
 import { getUserIds } from './actions'
 import { Button } from '@/components'
+import Link from 'next/link'
 
 export const CreateMeeting = () => {
 	const [descriptionInput, setDescriptionInput] = useState('')
@@ -204,5 +205,23 @@ interface MeetingLinkProps {
 
 const MeetingLink = ({ call }: MeetingLinkProps) => {
 	const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${call.id}`
-	return <div className="mt-4 text-center text-sm text-slate-500">{meetingLink}</div>
+	return <div className="text-center flex flex-col items-center gap-3">
+		<div className="flex items-center gap-3">
+			<span>
+				Invitation Link: {''}
+				<Link className='font-medium' href={meetingLink} target="_blank">
+					{meetingLink}
+				</Link>
+			</span>
+			<button
+				title="Copy Invitation Link"
+				onClick={() => {
+					navigator.clipboard.writeText(meetingLink)
+					alert('Copied to clipboard')
+				}}
+			>
+				<Copy className="h-4 w-4" />
+			</button>
+		</div>
+	</div>
 }
