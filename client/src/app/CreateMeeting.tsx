@@ -223,5 +223,20 @@ const MeetingLink = ({ call }: MeetingLinkProps) => {
 				<Copy className="h-4 w-4" />
 			</button>
 		</div>
+		<a className="text-blue-500 hover:underline" href={getMailToLink(meetingLink, call.state.startsAt, call.state.custom.description)} target="_blank">
+			Send Email Invitation
+		</a>
 	</div>
+}
+
+const getMailToLink = (meetingLink: string, startsAt?: Date, description?: string) => {
+	const startDateFormatted = startsAt ? startsAt.toLocaleString("en-US", {
+		dateStyle: "full",
+		timeStyle: "short"
+	}) : undefined
+
+	const subject = "Join my meeting" + (startDateFormatted ? ` on ${startDateFormatted}` : "")
+	const body = `Join my meeting at ${meetingLink}` + (startDateFormatted ? `\n\nThe meeting starts at ${startDateFormatted}` : "") +
+		(description ? `\n\nDescription: ${description}` : "")
+	return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }
