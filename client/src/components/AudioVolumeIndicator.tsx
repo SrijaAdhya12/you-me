@@ -1,5 +1,6 @@
+"use client"
+
 import { createSoundDetector, Icon, useCallStateHooks } from "@stream-io/video-react-sdk"
-import { flightRouterStateSchema } from "next/dist/server/app-render/types"
 import { useEffect, useState } from "react"
 
 const AudioVolumeIndicator = () => {
