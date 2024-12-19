@@ -58,7 +58,8 @@ const MeetingScreen = () => {
 	const callStartsAt = useCallStartsAt()
 	const [setupComplete, setSetupComplete] = useState(false)
 	const handleSetupComplete = async () => {
-		
+		call.join();
+		setSetupComplete(true);
 	}
 	const callIsInFuture = callStartsAt && new Date(callStartsAt) > new Date()
 	const callHasEnded = !!callEndedAt
