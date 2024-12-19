@@ -16,6 +16,7 @@ import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useStreamCall } from '@/hooks/useStreamCall'
 import { buttonClassName } from '@/components/Button'
+import PermissionPrompt from '@/components/PernissionPrompt'
 interface MeetingPageProps {
 	id: string
 }
@@ -68,6 +69,14 @@ interface SetupUIProps {
 }
 
 const SetupUI = ({ onSetupComplete }: SetupUIProps) => {
+	const call = useStreamCall()
+	const { useMicrophoneState, useCameraState } = useCallStateHooks()
+	const micState = useMicrophoneState()
+	const camState = useCameraState()
+	if (!micState.hasBrowserPermission || !camState.hasBrowserPermission) {
+		return <PermissionPrompt />
+	}
+	
 }
 const UpcomingMeetingScreen = () => {
 	const call = useStreamCall()
