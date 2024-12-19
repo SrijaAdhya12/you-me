@@ -1,10 +1,10 @@
 'use client'
 import { CallControls } from '@stream-io/video-react-sdk'
-
 import { useStreamCall } from '@/hooks/useStreamCall'
 import { PaginatedGridLayout, SpeakerLayout } from '@stream-io/video-react-sdk'
 import { BetweenHorizontalEnd, BetweenVerticalEnd, LayoutGrid } from 'lucide-react'
 import { useState } from 'react'
+import { EndCallButton } from '.'
 type CallLayout = 'speaker-vert' | 'speaker-horiz' | 'grid'
 
 const FlexibleCallLayout = () => {
@@ -15,6 +15,7 @@ const FlexibleCallLayout = () => {
 			<CallLayoutButtons layout={layout} setLayout={setLayout} />
 			<CallLayoutView layout={layout} />
 			<CallControls />
+			<EndCallButton />
 		</div>
 	)
 }
