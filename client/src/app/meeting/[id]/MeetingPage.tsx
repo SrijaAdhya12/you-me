@@ -1,21 +1,23 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	Call,
 	CallControls,
+	DeviceSettings,
 	SpeakerLayout,
 	StreamCall,
 	StreamTheme,
 	useCall,
 	useCallStateHooks,
-	useStreamVideoClient
+	useStreamVideoClient,
+	VideoPreview
 } from '@stream-io/video-react-sdk'
 import { Loader2, Upload } from 'lucide-react'
 import { useLoadCall } from '@/hooks/useLoadCall'
 import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useStreamCall } from '@/hooks/useStreamCall'
-import { buttonClassName } from '@/components/Button'
+import Button, { buttonClassName } from '@/components/Button'
 import PermissionPrompt from '@/components/PernissionPrompt'
 interface MeetingPageProps {
 	id: string
@@ -50,9 +52,14 @@ const MeetingPage = ({ id }: MeetingPageProps) => {
 export default MeetingPage
 
 const MeetingScreen = () => {
+	const call = useStreamCall()
 	const { useCallEndedAt, useCallStartsAt } = useCallStateHooks()
 	const callEndedAt = useCallEndedAt()
 	const callStartsAt = useCallStartsAt()
+	const [setupComplete, setSetupComplete] = useState(false)
+	const handleSetupComplete = async () => {
+		
+	}
 	const callIsInFuture = callStartsAt && new Date(callStartsAt) > new Date()
 	const callHasEnded = !!callEndedAt
 	if (callHasEnded) {
@@ -61,7 +68,17 @@ const MeetingScreen = () => {
 	if (callIsInFuture) {
 		return <UpcomingMeetingScreen />
 	}
-	return <div>call ui</div>
+	const description = call.state.custom.description
+	return (
+		<div className="space-y-6">
+			{description && (
+				<p className="text-center">
+					Meeting description: <span className="font-bold">{description}</span>
+				</p>
+			)}
+			{setupComplete ? <SpeakerLayout /> : <SetupUI onSetupComplete={handleSetupComplete} />}
+		</div>
+	)
 }
 
 interface SetupUIProps {
@@ -73,37 +90,61 @@ const SetupUI = ({ onSetupComplete }: SetupUIProps) => {
 	const { useMicrophoneState, useCameraState } = useCallStateHooks()
 	const micState = useMicrophoneState()
 	const camState = useCameraState()
+	const [micCamDisabled, setMicCamDisabled] = useState(false) 
+	useEffect(() => { 
+		if (micCamDisabled) {
+			call.camera.disable()
+			call.microphone.disable()
+		} else {
+			call.camera.enable()
+			call.microphone.enable()
+		}
+	}, [micCamDisabled, call])
+	
 	if (!micState.hasBrowserPermission || !camState.hasBrowserPermission) {
 		return <PermissionPrompt />
 	}
-	
+	return (
+		<div className="flex flex-col items-center gap-3">
+			<h1 className="text-center text-2xl font-bold">Setup</h1>
+			<VideoPreview />
+			<div className= "flex h-16 items-center justify-center">
+				<DeviceSettings/>	
+			</div>
+			<label className="flex items-center gap-2 font-medium">
+				<input type="checkbox" checked={micCamDisabled} onChange={(e) => setMicCamDisabled(e.target.checked)} />
+				Join with mic and camera off
+			</label>
+			<Button onClick={onSetupComplete}>Start Meeting</Button>
+		</div>
+	)
 }
 const UpcomingMeetingScreen = () => {
 	const call = useStreamCall()
 	return (
 		<div className="flex flex-col items-center gap-6">
-		<p>
-		Meeting starts in <span className="font-bold text-2xl">
-		{call.state.startsAt?.toLocaleString()}
-		</span>
-	</p>
-			{call.state.custom.description && <p>
-				Description: {" "}
-				<span className="font-bold">
-					{call.state.custom.description}
-				</span>
-			</p>}
-		<Link href="/" className={buttonClassName}>	
-			Go Home
-		</Link>
-	</div>)
+			<p>
+				Meeting starts in <span className="text-2xl font-bold">{call.state.startsAt?.toLocaleString()}</span>
+			</p>
+			{call.state.custom.description && (
+				<p>
+					Description: <span className="font-bold">{call.state.custom.description}</span>
+				</p>
+			)}
+			<Link href="/" className={buttonClassName}>
+				Go Home
+			</Link>
+		</div>
+	)
 }
 
 const MeetingEndedScreen = () => {
-	return <div className="flex flex-col items-center gap-6">
-		<p className="font-bold">Meeting Ended</p>
-		<Link href="/" className={buttonClassName}>
-			Go Home
-		</Link>
-	</div>
+	return (
+		<div className="flex flex-col items-center gap-6">
+			<p className="font-bold">Meeting Ended</p>
+			<Link href="/" className={buttonClassName}>
+				Go Home
+			</Link>
+		</div>
+	)
 }
