@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import {
 	Call,
 	CallControls,
+	CallingState,
 	DeviceSettings,
 	SpeakerLayout,
 	StreamCall,
@@ -19,7 +20,7 @@ import Link from 'next/link'
 import { useStreamCall } from '@/hooks/useStreamCall'
 import Button, { buttonClassName } from '@/components/Button'
 import PermissionPrompt from '@/components/PernissionPrompt'
-import { AudioVolumeIndicator } from '@/components'
+import { AudioVolumeIndicator, FlexibleCallLayout } from '@/components'
 interface MeetingPageProps {
 	id: string
 }
@@ -78,7 +79,7 @@ const MeetingScreen = () => {
 					Meeting description: <span className="font-bold">{description}</span>
 				</p>
 			)}
-			{setupComplete ? <SpeakerLayout /> : <SetupUI onSetupComplete={handleSetupComplete} />}
+			{setupComplete ? <CallUI /> : <SetupUI onSetupComplete={handleSetupComplete} />}
 		</div>
 	)
 }
@@ -122,6 +123,16 @@ const SetupUI = ({ onSetupComplete }: SetupUIProps) => {
 		</div>
 	)
 }
+
+const CallUI = () => {
+	const { useCallCallingState } = useCallStateHooks()
+	const callingState = useCallCallingState()
+	if (callingState !== CallingState.JOINED) {
+		return <Loader2 className="mx-auto animate-spin" />
+	}
+	return <FlexibleCallLayout />
+}
+
 const UpcomingMeetingScreen = () => {
 	const call = useStreamCall()
 	return (
