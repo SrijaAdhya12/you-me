@@ -11,7 +11,8 @@
 				"args": "after-used",
 				"argsIgnorePattern": "^_"
 			}
-		]
+		],
+		"@typescript-eslint/no-unused-expressions": "off"
 	}
 }
 
