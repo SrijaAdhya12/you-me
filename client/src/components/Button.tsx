@@ -4,7 +4,7 @@ const Button = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonEl
 	return (
 		<button
 			className={cn(
-				'flex w-full items-center justify-center gap-2 rounded-md bg-blue-500 px-3 py-2 font-semibold text-white transition-colors hover:bg-blue-600 active:bg-blue-600 disabled:bg-blue-300',
+				buttonClassName,
 				className
 			)}
 			{...props}
@@ -12,4 +12,7 @@ const Button = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonEl
 	)
 }
 
+export const buttonClassName = 'flex items-center justify-center gap-2 rounded-md bg-blue-500 px-3 py-2 font-semibold text-white transition-colors hover:bg-blue-600 active:bg-blue-600 disabled:bg-blue-300'
+
+ 
 export default Button
