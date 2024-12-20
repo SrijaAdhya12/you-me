@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 import MeetingPage from './MeetingPage'
+import { currentUser } from '@clerk/nextjs/server'
+import MeetingLoginPage from './MeetingLoginPage'
 
 type PageProps = {
 	params: Promise<{ id: string }> & { id: string }
@@ -16,6 +18,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function Page(props: PageProps) {
+	const user = await currentUser()
+	if (!user) {
+		return <MeetingLoginPage />
+	}
 	const { id } = await props.params
 	return <MeetingPage id={id} />
 }
