@@ -8,7 +8,7 @@ const Navbar = () => {
 				<Link href="/">New Meeting</Link>
 				<SignedIn>
 					<div className="flex items-center gap-5">
-						<Link href="/new-meeting">Meeting</Link>
+						<Link href="/meetings">Meetings</Link>
 						<UserButton />
 					</div>
 				</SignedIn>
