@@ -20,7 +20,7 @@ import Link from 'next/link'
 import { useStreamCall } from '@/hooks/useStreamCall'
 import Button, { buttonClassName } from '@/components/Button'
 import PermissionPrompt from '@/components/PernissionPrompt'
-import { AudioVolumeIndicator, FlexibleCallLayout } from '@/components'
+import { AudioVolumeIndicator, FlexibleCallLayout, RecordingList } from '@/components'
 interface MeetingPageProps {
 	id: string
 }
@@ -155,10 +155,16 @@ const UpcomingMeetingScreen = () => {
 const MeetingEndedScreen = () => {
 	return (
 		<div className="flex flex-col items-center gap-6">
-			<p className="font-bold">Meeting Ended</p>
+			<p className="font-bold">This Meeting has Ended</p>
 			<Link href="/" className={buttonClassName}>
 				Go Home
 			</Link>
+			<div className="space-y-3">
+				<h2 className='text-center text-xl font-bold'>
+					Recordings
+				</h2>
+				<RecordingList />
+			</div>
 		</div>
 	)
 }
