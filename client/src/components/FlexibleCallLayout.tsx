@@ -5,16 +5,20 @@ import { PaginatedGridLayout, SpeakerLayout } from '@stream-io/video-react-sdk'
 import { BetweenHorizontalEnd, BetweenVerticalEnd, LayoutGrid } from 'lucide-react'
 import { useState } from 'react'
 import { EndCallButton } from '.'
+import { useRouter } from 'next/navigation'
 type CallLayout = 'speaker-vert' | 'speaker-horiz' | 'grid'
 
 const FlexibleCallLayout = () => {
 	const [layout, setLayout] = useState<CallLayout>('speaker-vert')
 	const call = useStreamCall()
+
+	const router = useRouter()
+
 	return (
 		<div className="space-y-3">
 			<CallLayoutButtons layout={layout} setLayout={setLayout} />
 			<CallLayoutView layout={layout} />
-			<CallControls />
+			<CallControls onLeave={() => router.push(`/meeting/${call.id}/left`)} />
 			<EndCallButton />
 		</div>
 	)
