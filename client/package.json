@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.13.0",
+    "@clerk/nextjs": "^6.23.3",
     "@stream-io/node-sdk": "^0.4.19",
     "@stream-io/video-react-sdk": "^1.14.0",
     "clsx": "^2.1.1",
